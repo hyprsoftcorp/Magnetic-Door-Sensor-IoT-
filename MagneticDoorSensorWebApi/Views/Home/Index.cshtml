@@ -4,7 +4,7 @@
     <p><a href="http://windowsondevices.com" class="btn btn-primary btn-lg" target="_blank">Learn more about IoT&raquo;</a></p>
 </div>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <h2>Hardware</h2>
         <p>This is a list of the hardware used in this solution as well as the links to where these components can be purchased.</p>
         <ul>
@@ -15,7 +15,7 @@
             <li><a href="https://www.adafruit.com/products/375" target="_blank">Magnetic Contact Door Switch</a>.</li>
         </ul>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <h2>Software</h2>
         <p>This is a list of the software/technologies used in this solution as well as the links to where you can learn more about them.</p>
         <ul>
@@ -26,7 +26,11 @@
             <li><a href="http://www.asp.net/signalr" target="_blank">ASP.NET SignalR</a>.</li>
         </ul>
     </div>
-
+    <div class="col-md-4">
+        <h2>Door State</h2>
+        <p>This door state is updated in real-time thanks to <a href="http://www.asp.net/signalr" target="_blank">ASP.NET SignalR</a>.  The state of the door was last changed on <strong><span id="_lastUpdated"></span></strong>.</p>
+        <h1><span id="_state" class="label label-primary"></span></h1>
+    </div>
 </div>
 <div class="row">
     <div class="col-md-6">
@@ -53,3 +57,29 @@
         </div>
     </div>
 </div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/signalr")
+    <script src="~/signalr/hubs"></script>
+    <script type="text/javascript">
+        function sensorStateToString(state) {
+            switch (state) {
+                case 1:
+                    return "@(MagneticDoorSensorShared.SensorState.Closed)";
+                case 2:
+                    return "@(MagneticDoorSensorShared.SensorState.Open)";
+                default:
+                    return "@(MagneticDoorSensorShared.SensorState.Unknown)";
+            }
+        }
+        $(function () {
+            var hub = $.connection.sensorHub;
+            hub.client.dataChanged = function (data) {
+                var lastUpdated = new Date(data.LastUpdated);
+                $("#_lastUpdated").text(lastUpdated.toLocaleDateString() + " " + lastUpdated.toLocaleTimeString());
+                $("#_state").text(sensorStateToString(data.State));
+            };
+            $.connection.hub.start();
+        });
+    </script>
+}

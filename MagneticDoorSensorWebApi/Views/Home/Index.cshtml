@@ -4,18 +4,19 @@
     <p><a href="http://windowsondevices.com" class="btn btn-primary btn-lg" target="_blank">Learn more about IoT&raquo;</a></p>
 </div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <h2>Hardware</h2>
         <p>This is a list of the hardware used in this solution as well as the links to where these components can be purchased.</p>
         <ul>
-            <li><a href="http://www.mcmelectronics.com/" target="_blank">Raspberry Pi 2 B</a>.</li>
-            <li><a href="https://www.adafruit.com/products/239" target="_blank">Full size breadboard</a>.</li>
-            <li><a href="https://www.adafruit.com/products/1954" target="_blank">Premium Female/Male Extension Jumper Wires</a>.</li>
-            <li><a href="https://www.adafruit.com/products/2029" target="_blank">Assembled Pi Cobbler Plus and Breakout Cable</a>.</li>
-            <li><a href="https://www.adafruit.com/products/375" target="_blank">Magnetic Contact Door Switch</a>.</li>
+            <li><a href="http://www.mcmelectronics.com/" target="_blank">Raspberry Pi 2 B</a> (required).</li>
+            <li><a href="https://www.adafruit.com/products/1950" target="_blank">Premium Female/Female Extension Jumper Wires</a> (required).</li>
+            <li><a href="https://www.adafruit.com/products/375" target="_blank">Magnetic Contact Door Switch</a> (required).</li>
+            <li><a href="https://www.adafruit.com/products/239" target="_blank">Full size breadboard</a> (optional).</li>
+            <li><a href="https://www.adafruit.com/products/1954" target="_blank">Premium Female/Male Extension Jumper Wires</a> (optional).</li>
+            <li><a href="https://www.adafruit.com/products/2029" target="_blank">Assembled Pi Cobbler Plus and Breakout Cable</a> (optional).</li>
         </ul>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <h2>Software</h2>
         <p>This is a list of the software/technologies used in this solution as well as the links to where you can learn more about them.</p>
         <ul>
@@ -26,14 +27,14 @@
             <li><a href="http://www.asp.net/signalr" target="_blank">ASP.NET SignalR</a>.</li>
         </ul>
     </div>
-    <div class="col-md-4">
+</div>
+<div class="row">
+    <div class="col-md-3">
         <h2>Door State</h2>
         <p>This door state is updated in real-time thanks to <a href="http://www.asp.net/signalr" target="_blank">ASP.NET SignalR</a>.  The state of the door was last changed on <strong><span id="_lastUpdated"></span></strong>.</p>
         <h1><span id="_state" class="label label-primary"></span></h1>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
+    <div class="col-md-9">
         <h2>Code</h2>
         <p>All the code for this solution is on <a href="https://github.com/hyprsoftcorp/MagneticDoorSensor/" target="_blank">GitHub</a>.  There are 4 projects that make up the solution.</p>
         <ol>
@@ -43,16 +44,22 @@
             <li>MagneticDoorSensorWebApi - This is an ASP.NET MVC 5 website hosted in an Azure App Service that uses SignalR to distribute the door state changes to all subscribed clients.</li>
         </ol>
     </div>
-    <div class="col-md-6">
-        <h2>Screenshots</h2>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Visuals</h2>
         <div class="row">
-            <div class="col-md-6">
-                <a href="~/Content/Images/laptop.jpg" target="_blank"><img class="img-responsive img-thumbnail" src="~/Content/Images/laptop.jpg" title="UWP App - Windows 10 Laptop (x64)" /></a>
-                <p class="text-center"><small class="text-center">UWP App - Windows 10 Laptop (x64).</small></p>
+            <div class="col-md-4">
+                <a href="~/Content/Images/rpi2.jpg" target="_blank"><img class="img-responsive img-thumbnail" src="~/Content/Images/rpi2.jpg" title="Raspberry Pi 2 B + 1080p HDTV (ARM)" /></a>
+                <p class="text-center"><small class="text-center">Raspberry Pi 2 B + 1080p HDTV (ARM)</small></p>
             </div>
-            <div class="col-md-6">
-                <a href="~/Content/Images/rpi2.jpg" target="_blank"><img class="img-responsive img-thumbnail" src="~/Content/Images/rpi2.jpg" title="UWP App - Raspberry Pi 2 B + 1080p HDTV (ARM)" /></a>
-                <p class="text-center"><small>UWP App - Raspberry Pi 2 B + 1080p HDTV (ARM).</small></p>
+            <div class="col-md-4">
+                <a href="~/Content/Images/surface-open.jpg" target="_blank"><img class="img-responsive img-thumbnail" src="~/Content/Images/surface-open.jpg" title="Surface Pro 2 (x64) Door Open Simulation" /></a>
+                <p class="text-center"><small>Surface Pro 2 (x64) Door Open Simulation</small></p>
+            </div>
+            <div class="col-md-4">
+                <a href="~/Content/Images/surface-closed.jpg" target="_blank"><img class="img-responsive img-thumbnail" src="~/Content/Images/surface-closed.jpg" title="Surface Pro 2 (x64) Door Closed Simulation" /></a>
+                <p class="text-center"><small>Surface Pro 2 (x64) Door Closed Simulation</small></p>
             </div>
         </div>
     </div>

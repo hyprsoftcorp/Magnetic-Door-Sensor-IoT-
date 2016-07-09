@@ -1,0 +1,55 @@
+﻿<div class="jumbotron">
+    <h1>Magnetic Door Sensor</h1>
+    <p class="lead">This website is part of an IoT (Internet of Things) solution that uses a Raspberry Pi 2 B device to detect whether a door is open or closed.</p>
+    <p><a href="http://windowsondevices.com" class="btn btn-primary btn-lg" target="_blank">Learn more about IoT&raquo;</a></p>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h2>Hardware</h2>
+        <p>This is a list of the hardware used in this solution as well as the links to where these components can be purchased.</p>
+        <ul>
+            <li><a href="http://www.mcmelectronics.com/" target="_blank">Raspberry Pi 2 B</a>.</li>
+            <li><a href="https://www.adafruit.com/products/239" target="_blank">Full size breadboard</a>.</li>
+            <li><a href="https://www.adafruit.com/products/1954" target="_blank">Premium Female/Male Extension Jumper Wires</a>.</li>
+            <li><a href="https://www.adafruit.com/products/2029" target="_blank">Assembled Pi Cobbler Plus and Breakout Cable</a>.</li>
+            <li><a href="https://www.adafruit.com/products/375" target="_blank">Magnetic Contact Door Switch</a>.</li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h2>Software</h2>
+        <p>This is a list of the software/technologies used in this solution as well as the links to where you can learn more about them.</p>
+        <ul>
+            <li><a href="https://developer.microsoft.com/en-us/windows/iot/Downloads" target="_blank">Windows 10 IoT Core version 10.0.14376.0</a>.</li>
+            <li><a href="https://www.visualstudio.com/en-us/products/visual-studio-professional-with-msdn-vs.aspx" target="_blank">Visual Studio 2015 Professional with Update 3</a>.</li>
+            <li><a href="https://msdn.microsoft.com/en-us/windows/uwp/get-started/universal-application-platform-guide" target="_blank">UWP (Universal Windows Platform)</a>.</li>
+            <li><a href="https://asp.net" target="_blank">ASP.NET MVC 5</a>, <a href="https://getbootstrap.com" target="_blank">Bootstrap</a>, <a href="https://www.jquery.com" target="_blank">JQuery</a>.</li>
+            <li><a href="http://www.asp.net/signalr" target="_blank">ASP.NET SignalR</a>.</li>
+        </ul>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h2>Code</h2>
+        <p>All the code for this solution is on <a href="https://www.github.com/hyprsoftcorp" target="_blank">GitHub</a>.  There are 4 projects that make up the solution.</p>
+        <ol>
+            <li>MagneticDoorSensorApp - This is a standard UWP client app that receives real-time notifications when the door is open or closed.</li>
+            <li>MagneticDoorSensorBackgroundApp - This is a Windows IoT Core Background app that monitors the GPIO pins on the Raspberry PI.</li>
+            <li>MagneticDoorSensorShared - This is a PCL (Portable Class Library) that houses the classes and code shared by the other 3 projects.</li>
+            <li>MagneticDoorSensorWebApi - This is an ASP.NET MVC 5 website hosted in an Azure App Service that uses SignalR to distribute the door state changes to all subscribed clients.</li>
+        </ol>
+    </div>
+    <div class="col-md-6">
+        <h2>Screenshots</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <a href="~/Content/Images/laptop.jpg" target="_blank"><img class="img-responsive img-thumbnail" src="~/Content/Images/laptop.jpg" title="UWP App - Windows 10 Laptop (x64)" /></a>
+                <p class="text-center"><small class="text-center">UWP App - Windows 10 Laptop (x64).</small></p>
+            </div>
+            <div class="col-md-6">
+                <a href="~/Content/Images/rpi2.jpg" target="_blank"><img class="img-responsive img-thumbnail" src="~/Content/Images/rpi2.jpg" title="UWP App - Raspberry Pi 2 B + 1080p HDTV (ARM)" /></a>
+                <p class="text-center"><small>UWP App - Raspberry Pi 2 B + 1080p HDTV (ARM).</small></p>
+            </div>
+        </div>
+    </div>
+</div>

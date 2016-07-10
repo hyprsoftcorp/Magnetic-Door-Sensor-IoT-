@@ -8,13 +8,18 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <TextBlock FontSize="50" Text="DOOR STATE" HorizontalAlignment="Center" />
-            <TextBlock FontSize="18" HorizontalAlignment="Center" Foreground="Silver">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock FontSize="50" Text="DOOR STATE" HorizontalAlignment="Center" Foreground="#337ab7" />
+            <TextBlock FontSize="18" HorizontalAlignment="Center" Foreground="Gray">
                 <Run Text="Last updated: " />
                 <Run Text="{x:Bind ViewModel.LastUpdated, Mode=OneWay}" />
             </TextBlock>
-            <TextBlock FontSize="120" Text="{x:Bind ViewModel.State, Mode=OneWay}" HorizontalAlignment="Center"  />
+            <TextBlock FontSize="120" Text="{x:Bind ViewModel.State, Mode=OneWay}" HorizontalAlignment="Center" Foreground="#f0ad4e"  />
         </StackPanel>
+        <TextBlock Grid.Row="1" Text="{x:Bind ViewModel.LastError, Mode=OneWay}" Margin="20,10" Foreground="#e81123" />
     </Grid>
 </Page>

@@ -20,10 +20,11 @@ namespace MagneticDoorSensorApp
         public MainViewModel()
         {
             var hubConnection = new HubConnection(Constants.SignalREndPoint);
+            hubConnection.Error += ex => RunOnUiThread(() => LastError = ex.Message);
 
             _hubProxy = hubConnection.CreateHubProxy("SensorHub");
 
-            _hubProxy.On<SensorData>("dataChanged", async (data) => await Windows.ApplicationModel.Core.CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            _hubProxy.On<SensorData>("dataChanged", (data) => RunOnUiThread(() =>
             {
                 State = data.State;
                 LastUpdated = data.LastUpdated.ToLocalTime();
@@ -64,9 +65,25 @@ namespace MagneticDoorSensorApp
             }
         }
 
+        private string _lastError;
+        public string LastError
+        {
+            get { return _lastError; }
+            set
+            {
+                _lastError = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Methods
+
+        private async void RunOnUiThread(Action action)
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
+        }
 
         private void OnPropertyChanged([CallerMemberName] string name = "")
         {

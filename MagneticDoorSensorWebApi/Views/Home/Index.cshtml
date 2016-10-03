@@ -68,6 +68,20 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Recent State Changes</h2>
+        <table id="_events" class="table table-striped table-hover">
+            <tr>
+                <th>Date/Time</th>
+                <th>State</th>
+            </tr>
+        </table>
+        <button class="btn btn-info" onclick="loadEvents()">Refresh</button>
+    </div>
+</div>
+
 @section scripts
 {
     @Scripts.Render("~/bundles/signalr")
@@ -83,6 +97,20 @@
                     return "@(MagneticDoorSensorShared.SensorState.Unknown)";
             }
         }
+        function loadEvents() {
+            $.ajax({
+                url: '@Url.Action("Events", "Home")',
+                cache: false,
+                dataType: "json",
+                success: function (data) {
+                    $("#_events .data").remove();
+                    $.each(data, function (index, value) {
+                        var lastUpdated = new Date(value.LastUpdated);
+                        $("#_events").append("<tr class=\"data\"><td>" + lastUpdated.toLocaleDateString() + " " + lastUpdated.toLocaleTimeString() + "</td><td>" + sensorStateToString(value.State) + "</td></tr>");
+                    });
+                }
+            });
+        }
         $(function () {
             var hub = $.connection.sensorHub;
             hub.client.dataChanged = function (data) {
@@ -91,6 +119,7 @@
                 $("#_state").text(sensorStateToString(data.State));
             };
             $.connection.hub.start();
+            loadEvents();
         });
     </script>
 }

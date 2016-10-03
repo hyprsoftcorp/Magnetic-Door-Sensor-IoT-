@@ -5,6 +5,9 @@ using Windows.Devices.Gpio;
 using MagneticDoorSensorShared;
 using Windows.Storage;
 using System.Threading.Tasks;
+using Microsoft.Azure.Devices.Client;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace MagneticDoorSensorBackgroundApp
 {
@@ -16,6 +19,7 @@ namespace MagneticDoorSensorBackgroundApp
         private BackgroundTaskDeferral _deferral;
         private GpioPin _sensorPin;
         private IHubProxy _hubProxy;
+        private DeviceClient _deviceClient;
 
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
@@ -24,10 +28,13 @@ namespace MagneticDoorSensorBackgroundApp
 
             try
             {
+                if (_deviceClient == null)
+                    _deviceClient = DeviceClient.CreateFromConnectionString(Constants.DeviceConnectionString);
+
                 var controller = GpioController.GetDefault();
                 _sensorPin = controller.OpenPin(18);
                 _sensorPin.SetDriveMode(GpioPinDriveMode.InputPullUp);
-                var hubConnection = new HubConnection(Constants.SignalREndPoint);
+                var hubConnection = new HubConnection(MagneticDoorSensorShared.Constants.SignalREndPoint);
                 _hubProxy = hubConnection.CreateHubProxy("SensorHub");
                 await hubConnection.Start();
 
@@ -35,10 +42,12 @@ namespace MagneticDoorSensorBackgroundApp
                 {
                     try
                     {
-                        await _hubProxy.Invoke("DataChanged", new SensorData
+                        var data = new SensorData
                         {
                             State = _sensorPin.Read() == GpioPinValue.High ? SensorState.Open : SensorState.Closed
-                        });
+                        };
+                        await _hubProxy.Invoke("DataChanged", data);
+                        await _deviceClient.SendEventAsync(new Message(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(data))));
                     }
                     catch (Exception ex)
                     {

@@ -27,7 +27,7 @@ namespace MagneticDoorSensorApp
 
             _hubProxy.On<SensorData>("dataChanged", (data) => RunOnUiThread(() =>
             {
-                State = data.State;
+                State = data.State.ToString();
                 LastUpdated = data.LastUpdated.ToLocalTime();
                 switch (data.State)
                 {
@@ -56,13 +56,13 @@ namespace MagneticDoorSensorApp
 
         #region Properties
 
-        private SensorState _state = SensorState.Unknown;
-        public SensorState State
+        private string _state = SensorState.Unknown.ToString().ToUpper();
+        public string State
         {
             get { return _state; }
             set
             {
-                _state = value;
+                _state = value.ToUpper();
                 OnPropertyChanged();
             }
         }

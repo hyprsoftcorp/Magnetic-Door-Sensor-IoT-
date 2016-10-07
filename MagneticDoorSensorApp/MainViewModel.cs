@@ -56,7 +56,7 @@ namespace MagneticDoorSensorApp
 
         #region Properties
 
-        private SensorState _state;
+        private SensorState _state = SensorState.Unknown;
         public SensorState State
         {
             get { return _state; }
@@ -67,7 +67,7 @@ namespace MagneticDoorSensorApp
             }
         }
 
-        private FontAwesomeIcon _icon;
+        private FontAwesomeIcon _icon = FontAwesomeIcon.QuestionCircle;
         public FontAwesomeIcon Icon
         {
             get { return _icon; }

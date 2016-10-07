@@ -5,6 +5,7 @@
     xmlns:local="using:MagneticDoorSensorApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fa="using:FontAwesome.UWP"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -13,12 +14,16 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock FontSize="50" Text="DOOR STATE" HorizontalAlignment="Center" Foreground="#337ab7" />
-            <TextBlock FontSize="18" HorizontalAlignment="Center" Foreground="Gray">
+            <TextBlock  HorizontalAlignment="Center" Foreground="#337ab7">
+                <Run Text="DOOR STATE (" FontSize="50" FontWeight="SemiBold" />
+                <Run Text="{x:Bind ViewModel.State, Mode=OneWay}" FontSize="50" />
+                <Run Text=")" FontSize="50" FontWeight="SemiBold" />
+            </TextBlock>
+            <TextBlock FontSize="14" HorizontalAlignment="Center" Foreground="Gray">
                 <Run Text="Last updated: " />
                 <Run Text="{x:Bind ViewModel.LastUpdated, Mode=OneWay}" />
             </TextBlock>
-            <TextBlock FontSize="120" Text="{x:Bind ViewModel.State, Mode=OneWay}" HorizontalAlignment="Center" Foreground="#f0ad4e"  />
+            <fa:FontAwesome Icon="{x:Bind ViewModel.Icon, Mode=OneWay}" FontSize="250" Foreground="#337ab7" />
         </StackPanel>
         <TextBlock Grid.Row="1" Text="{x:Bind ViewModel.LastError, Mode=OneWay}" Margin="20,10" Foreground="#e81123" />
     </Grid>

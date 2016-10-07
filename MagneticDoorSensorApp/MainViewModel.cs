@@ -4,6 +4,7 @@ using System.ComponentModel;
 using MagneticDoorSensorShared;
 using Windows.UI.Core;
 using System.Runtime.CompilerServices;
+using FontAwesome.UWP;
 
 namespace MagneticDoorSensorApp
 {
@@ -28,6 +29,18 @@ namespace MagneticDoorSensorApp
             {
                 State = data.State;
                 LastUpdated = data.LastUpdated.ToLocalTime();
+                switch (data.State)
+                {
+                    case SensorState.Closed:
+                        Icon = FontAwesomeIcon.Lock;
+                        break;
+                    case SensorState.Open:
+                        Icon = FontAwesomeIcon.Unlock;
+                        break;
+                    default:
+                        Icon = FontAwesomeIcon.QuestionCircle;
+                        break;
+                }
             }));
 
             hubConnection.Start();
@@ -50,6 +63,17 @@ namespace MagneticDoorSensorApp
             set
             {
                 _state = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private FontAwesomeIcon _icon;
+        public FontAwesomeIcon Icon
+        {
+            get { return _icon; }
+            set
+            {
+                _icon = value;
                 OnPropertyChanged();
             }
         }

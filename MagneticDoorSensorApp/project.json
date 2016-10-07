@@ -1,5 +1,6 @@
 ﻿{
   "dependencies": {
+    "FontAwesome.UWP": "4.5.0.8",
     "Microsoft.AspNet.SignalR.Client": "2.2.1",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
   },

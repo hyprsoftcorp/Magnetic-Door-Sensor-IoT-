@@ -5,6 +5,8 @@ using MagneticDoorSensorShared;
 using Windows.UI.Core;
 using System.Runtime.CompilerServices;
 using FontAwesome.UWP;
+using Windows.UI.Xaml;
+using Windows.ApplicationModel;
 
 namespace MagneticDoorSensorApp
 {
@@ -21,13 +23,16 @@ namespace MagneticDoorSensorApp
         public MainViewModel()
         {
             var hubConnection = new HubConnection(Constants.SignalREndPoint);
-            hubConnection.Error += ex => RunOnUiThread(() => LastError = ex.Message);
+            hubConnection.Error += ex => RunOnUiThread(() =>
+            {
+                LastError = $"Notification Hub Error: {ex.Message}";
+                BusyVisibility = Visibility.Collapsed;
+            });
 
             _hubProxy = hubConnection.CreateHubProxy("SensorHub");
-
             _hubProxy.On<SensorData>("dataChanged", (data) => RunOnUiThread(() =>
             {
-                State = data.State.ToString();
+                State = data.State;
                 LastUpdated = data.LastUpdated.ToLocalTime();
                 switch (data.State)
                 {
@@ -41,6 +46,7 @@ namespace MagneticDoorSensorApp
                         Icon = FontAwesomeIcon.QuestionCircle;
                         break;
                 }
+                BusyVisibility = Visibility.Collapsed;
             }));
 
             hubConnection.Start();
@@ -56,13 +62,13 @@ namespace MagneticDoorSensorApp
 
         #region Properties
 
-        private string _state = SensorState.Unknown.ToString().ToUpper();
-        public string State
+        private SensorState _state = SensorState.Unknown;
+        public SensorState State
         {
             get { return _state; }
             set
             {
-                _state = value.ToUpper();
+                _state = value;
                 OnPropertyChanged();
             }
         }
@@ -98,6 +104,22 @@ namespace MagneticDoorSensorApp
                 _lastError = value;
                 OnPropertyChanged();
             }
+        }
+
+        private Visibility _busyVisibility = Visibility.Visible;
+        public Visibility BusyVisibility
+        {
+            get { return _busyVisibility; }
+            set
+            {
+                _busyVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string AppVersion
+        {
+            get { return $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}"; }
         }
 
         #endregion

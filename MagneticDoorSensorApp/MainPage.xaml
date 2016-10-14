@@ -18,10 +18,21 @@
             <TextBlock FontSize="14" HorizontalAlignment="Center" Foreground="Gray">
                 <Run Text="Updated:" />
                 <Run Text="{x:Bind ViewModel.LastUpdated, Mode=OneWay}" />
+                <Run Text=" | " />
+                <Run Text="{x:Bind ViewModel.State, Mode=OneWay}" />
             </TextBlock>
             <fa:FontAwesome Icon="{x:Bind ViewModel.Icon, Mode=OneWay}" FontSize="250" Foreground="#337ab7" />
-            <TextBlock Text="{x:Bind ViewModel.State, Mode=OneWay}" FontSize="20" HorizontalAlignment="Center" Foreground="Gray" />
+            <Border Height="10">
+                <ProgressBar IsIndeterminate="True" Visibility="{x:Bind ViewModel.BusyVisibility, Mode=OneWay}" />
+            </Border>
         </StackPanel>
-        <TextBlock Grid.Row="1" Text="{x:Bind ViewModel.LastError, Mode=OneWay}" Margin="20,10" Foreground="#e81123" />
+        <Grid Grid.Row="1" Margin="20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="{x:Bind ViewModel.LastError, Mode=OneWay}"  FontSize="12" Foreground="#e81123" />
+            <TextBlock Grid.Column="1" Text="{x:Bind ViewModel.AppVersion}"  FontSize="12" Foreground="Silver" />
+        </Grid>
     </Grid>
 </Page>
